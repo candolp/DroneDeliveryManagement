@@ -11,7 +11,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.coandolp</groupId>
+    <groupId>com.candolp</groupId>
     <artifactId>DroneDeliveryManagement</artifactId>
     <name>Master Build</name>
     <version>1.0-SNAPSHOT</version>
