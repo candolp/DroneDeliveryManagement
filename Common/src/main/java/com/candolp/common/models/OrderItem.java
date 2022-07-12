@@ -1,5 +1,6 @@
 package com.candolp.common.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -18,11 +19,12 @@ public class OrderItem {
     @Fetch(FetchMode.SELECT)
     private Medication medication;
 
-    @Column(nullable = false, columnDefinition = "1")
+    @Column(nullable = false)
     private int quantity;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "order_id")
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "orders")
     private Order order;
 
     public Order getOrder() {
@@ -47,5 +49,23 @@ public class OrderItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setMedication(Medication medication) {
+        this.medication = medication;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id:" + id +
+                ", medication:" + medication +
+                ", quantity:" + quantity +
+//                ", order:" + order +
+                '}';
     }
 }

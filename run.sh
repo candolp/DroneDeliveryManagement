@@ -1,0 +1,1 @@
+java -jar RESTServices-1.0-SNAPSHOT.jar

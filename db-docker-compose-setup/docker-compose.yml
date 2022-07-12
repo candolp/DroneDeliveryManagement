@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+#  Database********************************
+  postgres:
+      container_name: postgres
+      build:
+          context: ./postgres96
+          dockerfile: Dockerfile
+      ports: 
+          - "5432:5432"
+      environment: 
+            - POSTGRESQL_USER=genkey
+            - POSTGRESQL_PASSWORD=genkey
+            - POSTGRESQL_DATABASE=genkey
+            - POSTGRESQL_ADMIN_PASSWORD=postgres
+      env_file:
+          - ./postgres96/env/postgres.env
+      volumes: 
+          - postgres-data:/var/lib/pgsql/data/:rw
+      networks: 
+        - testenvnet 
+      restart: on-failure
+
+
+  # ***********Database Script**********
+  dbscript:
+          build:
+              context: .
+              dockerfile: Dockerfile
+          depends_on:
+              - postgres
+          command: ["db_scripts/wait-for-it.sh", "postgres:5432", "--", "sh", "db_scripts/dbscript.sh"]
+          networks: 
+              - testenvnet 
+
+networks:
+  testenvnet:
+    driver: "bridge"
+
+volumes:
+  postgres-data:
+    name: postgres-data
+

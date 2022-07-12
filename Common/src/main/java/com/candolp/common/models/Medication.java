@@ -16,7 +16,7 @@ public class Medication {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Column(nullable = false, columnDefinition = "0")
+    @Column(nullable = false)
     private long weight;
 
     @Column
@@ -40,5 +40,36 @@ public class Medication {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setWeight(long weight) {
+        this.weight = weight;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id:" + id +
+                ", name:'" + name + '\'' +
+                ", code:'" + code + '\'' +
+                ", weight:" + weight +
+                ", image:'" + image + '\'' +
+                '}';
     }
 }

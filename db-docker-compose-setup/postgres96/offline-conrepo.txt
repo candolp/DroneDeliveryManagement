@@ -1,0 +1,5 @@
+[offline-conrepo]
+name=CentOS-$releasever - Container Repository
+baseurl=file:///var/tmp/containerrepo
+enabled=0
+gpgcheck=0

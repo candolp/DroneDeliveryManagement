@@ -4,12 +4,13 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
 
 @Entity
-@Table
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,30 +18,19 @@ public class Order {
     private Long id;
 
     @Column
-    private Timestamp requested;
+    private long requested;
 
     @Column
-    private Timestamp delivered;
+    private long delivered;
 
     @Column
     private long totalWeight;
 
-    @OneToOne(cascade = {CascadeType.DETACH})
-    @JoinColumn
-    @Fetch(FetchMode.JOIN)
-    private User orderedBy;
+    @Column
+    private String orderedBy;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<OrderItem> items = new java.util.ArrayList<>();
-
-    public User getOrderedBy() {
-        return orderedBy;
-    }
-
-    public List<OrderItem> getItems() {
-        return items;
-    }
-
 
     public Long getId() {
         return id;
@@ -49,4 +39,46 @@ public class Order {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public long getRequested() {
+        return requested;
+    }
+
+    public void setRequested(long requested) {
+        this.requested = requested;
+    }
+
+    public long getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(long delivered) {
+        this.delivered = delivered;
+    }
+
+    public long getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(long totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
+    public String getOrderedBy() {
+        return orderedBy;
+    }
+
+    public void setOrderedBy(String orderedBy) {
+        this.orderedBy = orderedBy;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
+    }
 }
+
+

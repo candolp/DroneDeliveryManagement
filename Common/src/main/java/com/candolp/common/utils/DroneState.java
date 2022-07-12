@@ -6,5 +6,12 @@ public enum DroneState {
     LOADED,
     DELIVERING,
     DELIVERED,
-    RETURNING
+    RETURNING;
+    public static DroneState getValueOf(String droneState){
+        for(DroneState _droneState : values()){
+            if (_droneState.toString().equalsIgnoreCase(droneState)) return _droneState;
+        }
+
+        return null;
+    }
 }
